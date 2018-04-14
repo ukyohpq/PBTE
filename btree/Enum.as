@@ -10,6 +10,11 @@ package btree
 			this._enumValue = value;
 		}
 		
+		public function name():String
+		{
+			return this.tostring();	
+		}
+		
 		public function tostring():String
 		{
 			return "[ enum:" + getQualifiedClassName(this) + " " + this._enumValue.toString() +"]";

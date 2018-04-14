@@ -159,14 +159,14 @@ package btree
 			guard.setControl(control.tree.guardEvaluator);
 			guard.start();
 			guard.run();
-			switch(guard.getStatus())
+			switch(guard.status)
 			{
 				case TaskStatus.SUCCEEDED:
 					return true;
 				case TaskStatus.FAILED:
 					return false;
 				default:
-					throw new Error("Illegal guard status '" + guard.getStatus() + "'. Guards must either succeed or fail in one step.");
+					throw new Error("Illegal guard status '" + guard.status + "'. Guards must either succeed or fail in one step.");
 			}
 		}
 		

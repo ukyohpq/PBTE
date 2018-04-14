@@ -15,7 +15,7 @@ package btree.utils
 	public class BehaviorTreeLibrary
 	{
 		protected var repository:Dictionary;
-//		protected var resolver
+		protected var resolver:FileHandleResolver;
 		public function BehaviorTreeLibrary()
 		{
 		}
@@ -31,6 +31,7 @@ package btree.utils
 		public function createRootTask(treeReference:String):Task
 		{
 //			TODO
+			
 			return null;
 		}
 		
