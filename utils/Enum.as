@@ -1,4 +1,4 @@
-package btree
+package utils 
 {
 	import flash.utils.getQualifiedClassName;
 
@@ -12,10 +12,10 @@ package btree
 		
 		public function name():String
 		{
-			return this.tostring();	
+			return this.toString();	
 		}
 		
-		public function tostring():String
+		public function toString():String
 		{
 			return "[ enum:" + getQualifiedClassName(this) + " " + this._enumValue.toString() +"]";
 		}

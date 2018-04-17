@@ -80,7 +80,9 @@ package btree
 		public final function addChild(child:Task):int
 		{
 			var index:int = addChildToTask(child);
-//			if(tree != n)
+			if(tree != null && tree.listeners != null)
+				tree.notifyChildAdded(this, index);
+			return index
 		}
 		
 		/**
@@ -206,7 +208,7 @@ package btree
 		{
 			var previusStatus:TaskStatus = _status;
 			_status = TaskStatus.RUNNING;
-			if(tree.listenners != null && tree.listaners.size > 0)
+			if(tree.listeners != null && tree.listeners.length > 0)
 				tree.notifyStatusUpdated(this, previusStatus);
 			if(control != null)
 				control.childRunning(this, this);
@@ -218,13 +220,13 @@ package btree
 		 */
 		public final function success():void
 		{
-			var previousStatus = _status;
+			var previousStatus:TaskStatus = _status;
 			_status = TaskStatus.SUCCEEDED;
-			if(tree.listeners != null && tree.listaners.size > 0)
-				tree.notifyStatusUpdate(this, previousStatus);
+			if(tree.listeners != null && tree.listeners.length > 0)
+				tree.notifyStatusUpdated(this, previousStatus);
 			end();
 			if(control != null)
-				control.childSucess(this);	
+				control.childSuccess(this);	
 		}
 		
 		/**
@@ -233,10 +235,10 @@ package btree
 		 */
 		public final function fail():void
 		{
-			var previusStatus = _status;
+			var previusStatus:TaskStatus = _status;
 			_status = TaskStatus.FAILED;
-			if(tree.listeners != null && tree.listeners.size > 0)
-				tree.notifyStatusUpdate(this, previusStatus);
+			if(tree.listeners != null && tree.listeners.length > 0)
+				tree.notifyStatusUpdated(this, previusStatus);
 			if(control != null)
 				control.childFail(this);
 		}
@@ -267,7 +269,7 @@ package btree
 		 * @param reporter the task that reports, usually one of this task's children
 		 * 
 		 */
-		public function childRunning(runningTask, reporter:Task):void
+		public function childRunning(runningTask:Task, reporter:Task):void
 		{
 			throw "must be override";
 		}
@@ -279,10 +281,10 @@ package btree
 		public function cancel():void
 		{
 			cancelRunningChildren(0);
-			var previousStatus = _status;
+			var previousStatus:TaskStatus = _status;
 			_status = TaskStatus.CANCELLED;
-			if(tree.listeners != null && tree.listeners.size > 0)
-				tree.notifyStatusUpdate(this, previousStatus);
+			if(tree.listeners != null && tree.listeners.length > 0)
+				tree.notifyStatusUpdated(this, previousStatus);
 			end();
 		}
 		
@@ -339,14 +341,15 @@ package btree
 			}
 			try
 			{
-				var thisCls:Class = getDefinitionByName(getQualifiedClassName(this));
-				var clone:Task = copyTo(new thisCls());
+				var thisCls:Class = getDefinitionByName(getQualifiedClassName(this)) as Class;
+				var clone:Task = copyto(new thisCls());
 				clone.guard = guard == null?null:guard.cloneTask();
 				return clone;
 			}catch(e:Error)
 			{
 				throw new TaskCloneException(e.message);
 			}
+			return null;
 		}
 		
 		/**

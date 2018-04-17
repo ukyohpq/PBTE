@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/mx">
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   initialize="windowedapplication1_initializeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import flash.utils.getTimer;
+			
+			import mx.events.FlexEvent;
+			
+			import simpleBtree.Sequence;
+			import simpleBtree.TaskResult;
+			import simpleBtree.TaskStatus;
+			import simpleBtree.Tree;
+			import simpleBtree.logic.InitiativeTree;
+			import simpleBtree.logic.PassiveTree;
+			
+			private var _time:Number;
+
+			private var tree:Tree;
+			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
+			{
+				tree = new Tree(new Sequence());
+				tree.root.addChild(new PassiveTree());
+				tree.root.addChild(new InitiativeTree());
+				addEventListener(Event.ENTER_FRAME, onEnterFrame);
+				_time = getTimer();
+			}
+
+			private function onEnterFrame(event:Event):void
+			{
+				var time:Number = getTimer();
+				var dt:Number = (time - _time) / 1000;
+				_time = time;
+				var result:TaskResult = tree.run(dt);
+				tree.dispatchEvent("", null);
+				if(tree.status == TaskStatus.COMPLETE)
+				{
+					removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+				}
+//				trace(result);
+			}
+			
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>

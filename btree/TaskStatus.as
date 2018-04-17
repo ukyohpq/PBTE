@@ -1,5 +1,7 @@
 package btree
 {
+	import utils.Enum;
+
 	/**
 	 * The enumeration of the values that a task's status can have
 	 * @author davebaol
@@ -8,6 +10,10 @@ package btree
 	 */
 	public final class TaskStatus extends Enum
 	{
+		public function TaskStatus(value:int)
+		{
+			super(value);
+		}
 		/**
 		 * Means that the task has never run or has been reset.
 		 */

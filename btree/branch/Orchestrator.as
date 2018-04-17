@@ -1,6 +1,6 @@
 package btree.branch
 {
-	import btree.Enum;
+	import utils.Enum;
 
 	/**
 	 * The enumeration of the child orchestrators supported by the {@link Parallel} task

@@ -21,7 +21,7 @@ package btree
 		 * @param object
 		 * 
 		 */
-		public function BehaviorTree(rootTask:Task, object:Object)
+		public function BehaviorTree(rootTask:Task = null, object:Object = null)
 		{
 			this.rootTask = rootTask;
 			this.object = object;
@@ -76,7 +76,7 @@ package btree
 			throw new Error("index can't be >= size: " + i + " >= " + getChildCount());
 		}
 		
-		public override function childRunning(runningTask:Object, reporter:Task):void
+		public override function childRunning(runningTask:Task, reporter:Task):void
 		{
 			running();
 		}
@@ -216,7 +216,7 @@ class GuardEvaluator extends Task
 		
 	}
 	
-	public override function childRunning(runningTask:Object, reporter:Task):void
+	public override function childRunning(runningTask:Task, reporter:Task):void
 	{
 		
 	}
@@ -229,6 +229,6 @@ class GuardEvaluator extends Task
 
 interface Listener
 {
-	function statusUpdate(task:Task, previousStatus:TaskStatus);
-	function childAdded(task:Task, index:int);
+	function statusUpdate(task:Task, previousStatus:TaskStatus):void;
+	function childAdded(task:Task, index:int):void;
 }

@@ -1,6 +1,6 @@
 package btree.utils
 {
-	import btree.Enum;
+	import utils.Enum;
 	
 	public class FileType extends Enum
 	{
