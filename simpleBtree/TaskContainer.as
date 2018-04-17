@@ -12,9 +12,8 @@ package simpleBtree
 			_runIndex = 0;
 		}
 		
-		public override function reset():void
+		protected override function onReset():void
 		{
-			super.reset();
 			_runIndex = 0;
 			_runningChild = null;
 			for each (var child:Task in _children) 

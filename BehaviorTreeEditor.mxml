@@ -34,12 +34,11 @@
 				var dt:Number = (time - _time) / 1000;
 				_time = time;
 				var result:TaskResult = tree.run(dt);
-				tree.dispatchEvent("", null);
 				if(tree.status == TaskStatus.COMPLETE)
 				{
 					removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 				}
-//				trace(result);
+				trace(result);
 			}
 			
 		]]>

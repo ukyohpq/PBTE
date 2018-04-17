@@ -27,10 +27,9 @@ package simpleBtree.logic
 			}
 		}
 		
-		public override function reset():void
+		protected override function onReset():void
 		{
 			_duration = 0;
-			super.reset();
 		}
 	}
 }

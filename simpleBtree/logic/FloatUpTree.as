@@ -10,7 +10,9 @@ package simpleBtree.logic
 		{
 			super(new Sequence());
 			root.addChild(new FloatUpCondition());
-			root.addChild(new FloatUpTask());
+			var float:FloatUpTask = new FloatUpTask();
+			float.addGuard(new TestGuard());
+			root.addChild(float);
 		}
 	}
 }

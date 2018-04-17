@@ -37,16 +37,26 @@ package simpleBtree
 			return _status;
 		}
 
-		private var _eventMap:Dictionary;
+		private var _guard:Task;
 		public function Task()
 		{
-			_eventMap = new Dictionary();
 			reset();
+		}
+		
+		private function enter():void
+		{
+			tree.setActiveTask(this);
+			onEnter();
 		}
 		
 		protected function onEnter():void
 		{
 			trace("onEnter" + this);
+		}
+		
+		private function exit(result:TaskResult):void
+		{
+			onExit(result);
 		}
 		
 		protected function onExit(result:TaskResult):void
@@ -61,6 +71,11 @@ package simpleBtree
 		
 		public final function run(stepTime:Number):TaskResult
 		{
+			if(!checkGuard(stepTime))
+			{
+				return TaskResult.CANCEL;
+			}
+			
 			var result:TaskResult;
 			while(true)
 			{
@@ -77,43 +92,58 @@ package simpleBtree
 							case TaskResult.FAIL:
 							case TaskResult.SUCCESS:
 								status = TaskStatus.COMPLETE;
-								break;
+								this.exit(result);
+								return result;
 							case TaskResult.RUNNING:
 								_status = TaskStatus.RUNNING;
 								_sumTime += stepTime;
+								return result;
+							case TaskResult.CANCEL:
 								return result;
 							default:
 								throw new Error("非法的运行结果:" + result);
 						}
 					case TaskStatus.COMPLETE:
-						this.onExit(result);
-						return result;
+						throw new Error("不能运行一个已经结束的task");
 					default:
 						//不可能执行到的分支
 						throw new Error("非法的任务状态：" + _status);
-						break;
 				}
 			}
 			return result;
 		}
 		
-		public function reset():void
+		public final function reset():void
 		{
 			_startTime = 0;
 			_sumTime = 0;
 			status = TaskStatus.FRESH;
+			if(_guard)
+				_guard.reset();
+			onReset();
 		}
 			
-		public function addEventListener(event:String, handler:Function):void
+		protected function onReset():void
 		{
+			
 		}
 		
-		public function removeEventListener(event:String, handler:Function):void
+		public function addGuard(guard:Task):void
 		{
+			_guard = guard;
 		}
 		
-		public function dispatchEvent(event:String, data:Object):void
+		public function removeGuard():void
 		{
+			_guard = null;
 		}
+		
+		private function checkGuard(stepTime:Number):Boolean
+		{
+			if(!_guard) return true;
+			return _guard.run(stepTime) == TaskResult.SUCCESS;
+		}
+		
+		
 	}
 }
