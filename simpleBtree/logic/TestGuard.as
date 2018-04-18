@@ -1,26 +1,20 @@
 package simpleBtree.logic
 {
 	import simpleBtree.Guard;
+	import simpleBtree.Task;
 	import simpleBtree.TaskResult;
-	import simpleBtree.TaskStatus;
 	
 	public class TestGuard extends Guard
 	{
-		private var _t:Number;
-		public function TestGuard()
+		public function TestGuard(target:Task = null)
 		{
-			super();
-		}
-		
-		protected override function onReset():void
-		{
-			_t = 0;
+			super(target);
 		}
 		
 		protected override function doRun(stepTime:Number):TaskResult
 		{
-			_t += stepTime;
-			return _t < 10.6?TaskResult.SUCCESS:TaskResult.FAIL;
+			return target.sumTime < .6?TaskResult.SUCCESS:TaskResult.FAIL;
 		}
+		
 	}
 }

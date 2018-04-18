@@ -17,7 +17,7 @@ package simpleBtree
 
 		private var _sumTime:Number;
 
-		protected function get sumTime():Number
+		public function get sumTime():Number
 		{
 			return _sumTime;
 		}
@@ -37,7 +37,7 @@ package simpleBtree
 			return _status;
 		}
 
-		private var _guard:Task;
+		private var _guard:Guard;
 		public function Task()
 		{
 			reset();
@@ -128,9 +128,10 @@ package simpleBtree
 			
 		}
 		
-		public function addGuard(guard:Task):void
+		public function addGuard(guard:Guard):void
 		{
 			_guard = guard;
+			_guard.target = this;
 		}
 		
 		public function removeGuard():void
