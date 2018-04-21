@@ -51,7 +51,7 @@ package simpleBtree
 		
 		protected function onEnter():void
 		{
-			trace("onEnter" + this);
+//			trace("onEnter" + this);
 		}
 		
 		private function exit(result:TaskResult):void
