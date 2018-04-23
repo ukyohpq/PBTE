@@ -2,11 +2,15 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
-					   xmlns:ui="ui.*"
+					   xmlns:view="view.*"
 					   initialize="windowedapplication1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import command.CommandManager;
+			
 			import flash.utils.getTimer;
+			
+			import model.AppData;
 			
 			import mx.events.FlexEvent;
 			
@@ -25,8 +29,9 @@
 				tree = new Tree(new Sequence());
 				tree.root.addChild(new PassiveTree());
 				tree.root.addChild(new InitiativeTree());
-				addEventListener(Event.ENTER_FRAME, onEnterFrame);
+//				addEventListener(Event.ENTER_FRAME, onEnterFrame);
 				_time = getTimer();
+				
 			}
 
 			private function onEnterFrame(event:Event):void
@@ -42,13 +47,25 @@
 //				trace(result);
 			}
 			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				AppData.getInstance().currentProject.cmdStack.undo();
+			}
+			
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				AppData.getInstance().currentProject.cmdStack.redo();
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
-	<ui:ToolBar left="10" top="10">
-	</ui:ToolBar>
-	<ui:WorkSpace left="10" right="500" top="32" bottom="10">
-	</ui:WorkSpace>
+	<view:ToolBar left="10" top="10">
+	</view:ToolBar>
+	<view:WorkSpace left="10" right="500" top="32" bottom="10">
+	</view:WorkSpace>
+	<s:Button x="318" y="31" label="按钮" click="button1_clickHandler(event)"/>
+	<s:Button x="318" y="60" label="按钮" click="button2_clickHandler(event)"/>
 </s:WindowedApplication>

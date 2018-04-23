@@ -14,13 +14,14 @@ package command
 			this._name = name;
 		}
 		
-		public function execute(...params):void
+		public function execute(params:Array):void
 		{
-			
+			trace("do cmd:" + name)
 		}
 		
-		public function undo():void
+		public function undo(params:Array):void
 		{
+			trace("undo cmd:" + name)
 		}
 		
 	}

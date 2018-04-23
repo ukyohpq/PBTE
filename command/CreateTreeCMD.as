@@ -7,9 +7,15 @@ package command
 			super(name);
 		}
 		
-		public override function execute(...params):void
+		public override function execute(params:Array):void
 		{
-			var treeName:String = params[0];
+			super.execute(params);
+//			var treeName:String = params[0];
+		}
+		
+		public override function undo(params:Array):void
+		{
+			super.undo(params);
 		}
 	}
 }

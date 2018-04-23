@@ -10,7 +10,7 @@
 			
 			protected function menubar1_itemClickHandler(event:MenuEvent):void
 			{
-				CommandManager.doCommand(event.item.@data)
+				CommandManager.getInstance().doCommand(event.item.@data, null)
 			}
 			
 		]]>
