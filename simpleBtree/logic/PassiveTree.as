@@ -7,7 +7,7 @@ package simpleBtree.logic
 	{
 		public function PassiveTree()
 		{
-			super(new Selector());
+			super();
 			root.addChild(new HitBackTree());
 			root.addChild(new FloatUpTree())
 		}

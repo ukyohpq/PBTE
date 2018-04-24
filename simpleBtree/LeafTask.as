@@ -1,6 +1,6 @@
 package simpleBtree
 {
-	public class LeafTask extends Task
+	public class LeafTask extends Task implements ILeafTask
 	{
 		public function LeafTask()
 		{

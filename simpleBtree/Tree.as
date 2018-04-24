@@ -1,6 +1,6 @@
 package simpleBtree
 {
-	public class Tree extends LeafTask
+	public class Tree extends LeafTask implements ITree
 	{
 		private var _root:TaskContainer;
 		private var _activeTask:Task;
@@ -15,9 +15,9 @@ package simpleBtree
 			return _root;
 		}
 
-		public function Tree(root:TaskContainer)
+		public function Tree()
 		{
-			_root = root;
+			_root = new Sequence();
 			super();
 			if(tree)
 				_root.tree = tree;

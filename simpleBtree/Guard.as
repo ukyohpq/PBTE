@@ -1,6 +1,6 @@
 package simpleBtree
 {
-	public class Guard extends Task
+	public class Guard extends Task implements IGuard
 	{
 		private var _target:Task
 

@@ -8,7 +8,7 @@ package simpleBtree.logic
 	{
 		public function FloatUpTree()
 		{
-			super(new Sequence());
+			super();
 			root.addChild(new FloatUpCondition());
 			var float:FloatUpTask = new FloatUpTask();
 			float.addGuard(new TestGuard());

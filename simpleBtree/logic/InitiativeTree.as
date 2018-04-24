@@ -7,8 +7,7 @@ package simpleBtree.logic
 	{
 		public function InitiativeTree()
 		{
-			super(new Selector());
-//			root.addChild();
+			super();
 		}
 	}
 }

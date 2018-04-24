@@ -8,7 +8,7 @@ package simpleBtree.logic
 	{
 		public function HitBackTree()
 		{
-			super(new Sequence());
+			super();
 			root.addChild(new HitCondition());
 			root.addChild(new HitTask());
 		}

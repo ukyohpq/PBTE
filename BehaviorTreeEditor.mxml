@@ -3,7 +3,7 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   xmlns:view="view.*"
-					   initialize="windowedapplication1_initializeHandler(event)">
+					   initialize="windowedapplication1_initializeHandler(event)" width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
 			import command.CommandManager;
@@ -26,7 +26,7 @@
 			private var tree:Tree;
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
-				tree = new Tree(new Sequence());
+				tree = new Tree();
 				tree.root.addChild(new PassiveTree());
 				tree.root.addChild(new InitiativeTree());
 //				addEventListener(Event.ENTER_FRAME, onEnterFrame);

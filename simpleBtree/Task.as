@@ -3,10 +3,55 @@ package simpleBtree
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 
-	public class Task
+	public class Task implements ITask
 	{
-		public var parent:TaskContainer;
-		public var tree:Tree;
+		private var _parent:ITaskContainer;
+
+		public function get parent():ITaskContainer
+		{
+			return _parent;
+		}
+
+		public function set parent(value:ITaskContainer):void
+		{
+			_parent = value;
+		}
+
+		private var _tree:ITree;
+
+		public function get tree():ITree
+		{
+			return _tree;
+		}
+
+		public function set tree(value:ITree):void
+		{
+			_tree = value;
+		}
+
+		private var _name:String;
+
+		public function get name():String
+		{
+			return _name;
+		}
+
+		public function set name(value:String):void
+		{
+			_name = value;
+		}
+
+		private var _description:String;
+
+		public function get description():String
+		{
+			return _description;
+		}
+
+		public function set description(value:String):void
+		{
+			_description = value;
+		}
 
 		private var _startTime:Number;
 
@@ -37,7 +82,7 @@ package simpleBtree
 			return _status;
 		}
 
-		private var _guard:Guard;
+		private var _guard:IGuard;
 		public function Task()
 		{
 			reset();
@@ -128,7 +173,7 @@ package simpleBtree
 			
 		}
 		
-		public function addGuard(guard:Guard):void
+		public function addGuard(guard:IGuard):void
 		{
 			_guard = guard;
 			_guard.target = this;
