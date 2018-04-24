@@ -4,7 +4,7 @@ package model
 	{
 		private var _projectLibData:LibData;
 		private var _cmdStack:CommandStack;
-
+		private var _windows:Vector.<WorkSpaceWindowData>
 		public function get cmdStack():CommandStack
 		{
 			return _cmdStack;
@@ -14,6 +14,7 @@ package model
 		{
 			_projectLibData = new LibData();
 			_cmdStack = new CommandStack();
+			_windows = Vector.<WorkSpaceWindowData>([]);
 		}
 	}
 }
