@@ -1,6 +1,6 @@
 package simpleBtree
 {
-	public class TaskContainer extends Task implements ITaskContainer
+	public class TaskContainer extends Task
 	{
 		private var _children:Vector.<Task>;
 		private var _runIndex:int;
@@ -22,7 +22,7 @@ package simpleBtree
 			}
 		}
 		
-		public function addChild(task:ITask):void
+		public function addChild(task:Task):void
 		{
 			var index:int = _children.indexOf(task);
 			if(index == -1)
@@ -35,7 +35,7 @@ package simpleBtree
 			}
 		}
 		
-		public function removeChild(task:ITask):void
+		public function removeChild(task:Task):void
 		{
 			var index:int = _children.indexOf(task);
 			if(index != -1)

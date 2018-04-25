@@ -1,6 +1,6 @@
 package simpleBtree
 {
-	public class Tree extends LeafTask implements ITree
+	public class Tree extends LeafTask
 	{
 		private var _root:TaskContainer;
 		private var _activeTask:Task;
