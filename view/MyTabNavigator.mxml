@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TabNavigator xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				 xmlns:s="library://ns.adobe.com/flex/spark" 
+				 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+				 initialize="tabnavigator1_initializeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.Button;
+			
+			protected function tabnavigator1_initializeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				trace(this.tabBar)
+				addEventListener(Event.ENTER_FRAME, onEnterFrame);
+//				this.tabBar.addElement(new Button());
+			}
+
+			private function onEnterFrame(event:Event):void
+			{
+				if(this.tabBar){
+					removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+				}
+				this.tabBar.addChild(new Button());
+				this.tabBar.addChild(new Button());
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+</mx:TabNavigator>

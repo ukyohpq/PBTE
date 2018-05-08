@@ -16,5 +16,18 @@ package model
 			_cmdStack = new CommandStack();
 			_windows = Vector.<WorkSpaceWindowData>([]);
 		}
+		
+		public function createWindow():void
+		{
+			
+		}
+		
+		public function loadData(data:String = ""):void
+		{
+			if(data == "")
+			{
+				data = "";
+			}
+		}
 	}
 }
