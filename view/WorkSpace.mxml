@@ -3,21 +3,14 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:view="view.*"
-		 width="400" height="300" initialize="group1_initializeHandler(event)"
-		 rightClick="group1_rightClickHandler(event)">
+		 width="400" height="300" initialize="group1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
 			protected function group1_initializeHandler(event:FlexEvent):void
 			{
-//				tab.addEventListener();
 				
-			}
-			
-			protected function group1_rightClickHandler(event:MouseEvent):void
-			{
-				trace(this);
 			}
 			
 		]]>

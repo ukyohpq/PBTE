@@ -2,33 +2,42 @@
 <mx:TabNavigator xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				 xmlns:s="library://ns.adobe.com/flex/spark" 
 				 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+				 implements="view.IQuickMenu"
 				 initialize="tabnavigator1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.controls.Menu;
 			import mx.events.FlexEvent;
+			import mx.events.MenuEvent;
 			
 			import spark.components.Button;
 			
+			private var _menu:Menu;
 			protected function tabnavigator1_initializeHandler(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub
-				trace(this.tabBar)
-				addEventListener(Event.ENTER_FRAME, onEnterFrame);
-//				this.tabBar.addElement(new Button());
-			}
-
-			private function onEnterFrame(event:Event):void
-			{
-				if(this.tabBar){
-					removeEventListener(Event.ENTER_FRAME, onEnterFrame);
-				}
-				this.tabBar.addChild(new Button());
-				this.tabBar.addChild(new Button());
+				_menu = Menu.createMenu(this, menuData, false);
+				_menu.labelField = "@label";
+				_menu.addEventListener(MenuEvent.ITEM_CLICK,onItemClick);
 			}
 			
+			private function onItemClick(event:MenuEvent):void
+			{
+				trace(event.item.@eventName);
+			}
+			
+			public function showQuickMenu():void
+			{
+				menuData.menuitem[0].@enabled = true;
+				_menu.show(mouseX, mouseY);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+		<fx:XML id = "menuData">
+			<root>
+				<menuitem label="创建树" eventName="createTree"/>
+			</root>
+		</fx:XML>
 	</fx:Declarations>
 </mx:TabNavigator>

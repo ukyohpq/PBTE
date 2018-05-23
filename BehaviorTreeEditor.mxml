@@ -17,17 +17,28 @@
 			import simpleBtree.logic.InitiativeTree;
 			import simpleBtree.logic.PassiveTree;
 			
+			import view.IQuickMenu;
+			
 			private var _time:Number;
 
 			private var tree:Tree;
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
+				addEventListener(MouseEvent.RIGHT_CLICK, onRightClick);
 				tree = new Tree();
 				tree.root.addChild(new PassiveTree());
 				tree.root.addChild(new InitiativeTree());
 //				addEventListener(Event.ENTER_FRAME, onEnterFrame);
 				_time = getTimer();
 				
+			}
+
+			private function onRightClick(event:MouseEvent):void
+			{
+				if(event.target is IQuickMenu)
+				{
+					IQuickMenu(event.target).showQuickMenu();
+				}
 			}
 
 			private function onEnterFrame(event:Event):void
