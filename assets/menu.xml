@@ -1,0 +1,15 @@
+<menu>
+	<menuitem label="Menu1">
+		<menuitem label="open file"/>
+		<menuitem label="save"/>
+		<menuitem label="save as"/>
+	</menuitem>
+	<menuitem label="Menu2">
+		<menuitem label="MenuItem 2-A" type="check"/>
+		<menuitem type="separator"/>
+		<menuitem label="MenuItem 2-B" >
+			<menuitem label="SubMenuItem 3-A" type="radio" groupName="one"/>
+			<menuitem label="SubMenuItem 3-B" type="radio" groupName="one"/>
+		</menuitem>
+	</menuitem>
+</menu>

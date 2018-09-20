@@ -1,0 +1,17 @@
+<tree>
+	<node label="test_tree" type="tree">
+		<node label="Inbox" type="sequence">
+			<node label="Marketing" type="script"/>
+			<node label="Product Management" type="script"/>
+			<node label="Personal" type="script"/>
+		</node>
+		<node label="Outbox" type="tree">
+			<node label="Professional" type="script"/>
+			<node label="Personal" type="script"/>
+		</node>
+		<node label="Outbox2" type="tree">
+			<node label="Professional" type="script"/>
+			<node label="Personal" type="script"/>
+		</node>
+	</node>
+</tree>

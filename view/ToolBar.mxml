@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="0" height="0">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="0" height="0"
+		 initialize="group1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
-			import command.CommandManager;
-			
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
 			import mx.events.MenuEvent;
 			
 			protected function menubar1_itemClickHandler(event:MenuEvent):void
 			{
-				CommandManager.getInstance().doCommand(event.item.@data, null)
+				Commands.doCommand(event.item.@label[0].toString());
+			}
+			
+			protected function group1_initializeHandler(event:FlexEvent):void
+			{
+				var ldr:URLLoader = new URLLoader();
+				ldr.addEventListener(Event.COMPLETE,onComplete);
+				ldr.load(new URLRequest("assets/menu.xml"));
+			}
+
+			private function onComplete(event:Event):void
+			{
+				var ldr:URLLoader = event.target as URLLoader;
+				var xml:XML = XML(ldr.data);
+				bar.dataProvider = new XMLListCollection(xml.children());
 			}
 			
 		]]>
@@ -18,27 +33,6 @@
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
-	<mx:MenuBar left="0" right="400" top="0" height="20" itemClick="menubar1_itemClickHandler(event)"
-				labelField="@label">
-		<mx:dataProvider>
-			<s:XMLListCollection>
-				<fx:XMLList>
-					<menuitem label="Menu1" data="top">
-						<menuitem label="MenuItem 1-A" data="1A"/>
-						<menuitem label="MenuItem 1-B" data="1B"/>
-					</menuitem>
-					<menuitem label="Menu2" data="top">
-						<menuitem label="MenuItem 2-A" type="check" data="2A"/>
-						<menuitem type="separator"/>
-						<menuitem label="MenuItem 2-B" >
-							<menuitem label="SubMenuItem 3-A" type="radio"
-									  groupName="one" data="3A"/>
-							<menuitem label="SubMenuItem 3-B" type="radio"
-									  groupName="one" data="3B"/>
-						</menuitem>
-					</menuitem>
-				</fx:XMLList>
-			</s:XMLListCollection>
-		</mx:dataProvider>
+	<mx:MenuBar id="bar" left="0" right="400" top="0" height="20" itemClick="menubar1_itemClickHandler(event)" labelField="@label">
 	</mx:MenuBar>
 </s:Group>

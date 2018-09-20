@@ -7,6 +7,8 @@
 					   initialize="windowedapplication1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import flash.utils.describeType;
+			
 			import model.AppData;
 			
 			import mx.events.FlexEvent;
@@ -24,15 +26,16 @@
 			private var tree:Tree;
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
-				addEventListener(MouseEvent.RIGHT_CLICK, onRightClick);
-				tree = new Tree();
-				tree.root.addChild(new PassiveTree());
-				tree.root.addChild(new InitiativeTree());
-//				addEventListener(Event.ENTER_FRAME, onEnterFrame);
-				_time = getTimer();
+				Commands.initCMDs();
+//				addEventListener(MouseEvent.RIGHT_CLICK, onRightClick);
+//				tree = new Tree();
+//				tree.root.addChild(new PassiveTree());
+//				tree.root.addChild(new InitiativeTree());
+////				addEventListener(Event.ENTER_FRAME, onEnterFrame);
+//				_time = getTimer();
 				
 			}
-
+			
 			private function onRightClick(event:MouseEvent):void
 			{
 				if(event.target is IQuickMenu)
@@ -71,8 +74,7 @@
 	</fx:Declarations>
 	<view:ToolBar left="10" top="10">
 	</view:ToolBar>
-	<view:WorkSpace left="10" right="89" top="32" bottom="10">
-	</view:WorkSpace>
+	<view:WorkSpace id="wordSpace" left="10" right="89" top="32" bottom="10"/>
 	<s:Button x="719" y="32" label="undo" click="button1_clickHandler(event)"/>
 	<s:Button x="719" y="71" label="redo" click="button2_clickHandler(event)"/>
 </s:WindowedApplication>
