@@ -5,16 +5,18 @@ package
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import flash.net.FileReference;
+	import flash.utils.Dictionary;
 	
 	public class FileOperator
 	{
-		private static var fr:File = new File();
+		private static const fileMap:Object = {};
+		private static var file:File = new File();
 		[CMD(name="open file")]
 		public static function openFile():void
 		{
-			fr.addEventListener(Event.SELECT, onOpenSelect);
-			fr.addEventListener(Event.COMPLETE, onOpenComplete);
-			fr.browse([new FileFilter("btx", ".btx")]);
+			file.addEventListener(Event.SELECT, onOpenSelect);
+			file.addEventListener(Event.COMPLETE, onOpenComplete);
+			file.browse([new FileFilter("btx", ".btx")]);
 		}
 		
 		[CMD(name="save")]
@@ -31,19 +33,26 @@ package
 		
 		public static function onOpenComplete(event:Event):void
 		{
-			var fr:FileReference = event.target as FileReference;
-			fr.removeEventListener(Event.COMPLETE, onOpenComplete);
+			var file:File = event.target as File;
+			file.removeEventListener(Event.COMPLETE, onOpenComplete);
 			
 			var evt:DataEvent = new DataEvent(CoreEvent.SET_DATA);
-			evt.data = fr.data.toString();
+			evt.data = file.data.toString();
+			//把打开的文件和XMLList关联起来,便于存文件使用
+			fileMap[file.url + file.name] = XMLList(file.data.toString());
 			CoreEvent.getInstance().dispatchEvent(evt);
 		}
 		
 		public static function onOpenSelect(event:Event):void
 		{
-			var fr:FileReference = event.target as FileReference;
-			fr.removeEventListener(Event.SELECT, onOpenSelect);
-			fr.load();
+			var file:File = event.target as File;
+			if(fileMap[file.url + file.name] != null){
+				trace("该文件已经打开");
+				return;
+			}
+			trace(file.url);
+			file.removeEventListener(Event.SELECT, onOpenSelect);
+			file.load();
 		}
 	}
 }
