@@ -2,6 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="0" height="0"
+		 addedToStage="group1_addedToStageHandler(event)"
 		 initialize="group1_initializeHandler(event)">
 	<fx:Script>
 		<![CDATA[
@@ -9,6 +10,10 @@
 			import mx.events.FlexEvent;
 			import mx.events.MenuEvent;
 			
+			private var keyMap:Object;
+			private var keyUtil:Object;
+			
+			//菜单点击触发命令
 			protected function menubar1_itemClickHandler(event:MenuEvent):void
 			{
 				Commands.doCommand(event.item.@label[0].toString());
@@ -16,16 +21,77 @@
 			
 			protected function group1_initializeHandler(event:FlexEvent):void
 			{
+				keyMap = {};
+				keyUtil = {};
+				
+				var keys:Array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+				"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+				var length:int = keys.length;
+				for (var i:int = 0; i < length; i++) 
+				{
+					keyUtil[65 + i] = keys[i];
+				}
+				
 				var ldr:URLLoader = new URLLoader();
 				ldr.addEventListener(Event.COMPLETE,onComplete);
 				ldr.load(new URLRequest("assets/menu.xml"));
 			}
 
+			//快捷键触发命令
+			private function onKeyDown(event:KeyboardEvent):void
+			{
+				var keyName:String = keyUtil[event.keyCode];
+				if(keyName == null){
+					return;
+				}
+				var hotKey:String = "";
+				if(event.ctrlKey)
+				{
+					hotKey += "Ctrl+";
+				}
+					
+				if(event.shiftKey)
+				{
+					hotKey += "Shift+";
+				}
+				
+				if(event.altKey)
+				{
+					hotKey += "Alt+";
+				}
+				
+				
+				hotKey += keyName;
+				var cmdName:String = keyMap[hotKey];
+				if(cmdName == null){
+					return
+				}
+				Commands.doCommand(cmdName);
+			}
+			
 			private function onComplete(event:Event):void
 			{
 				var ldr:URLLoader = event.target as URLLoader;
 				var xml:XML = XML(ldr.data);
+				//把xml内容添加到菜单
 				bar.dataProvider = new XMLListCollection(xml.children());
+				//处理快捷键
+				var menuitems:XMLList = xml..menuitem;
+				for each (var item:XML in menuitems) 
+				{
+					var hotKey:String = item.@hotKey;
+					if(hotKey != "")
+					{
+						//把快捷键和菜单名进行关联
+						keyMap[item.@hotKey] = item.@label;						
+					}
+				}
+				
+			}
+			
+			protected function group1_addedToStageHandler(event:Event):void
+			{
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			}
 			
 		]]>

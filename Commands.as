@@ -34,6 +34,7 @@ package
 		
 		public static function doCommand(cmdName:String):void
 		{
+			trace("doCommand", cmdName);
 			var func:Function = map[cmdName];
 			if(func == null){
 				Alert.show("错误的命令:" + cmdName);

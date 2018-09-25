@@ -1,8 +1,8 @@
 <menu>
 	<menuitem label="Menu1">
-		<menuitem label="open file"/>
-		<menuitem label="save"/>
-		<menuitem label="save as"/>
+		<menuitem label="open file" hotKey="Ctrl+O"/>
+		<menuitem label="save" hotKey="Ctrl+S"/>
+		<menuitem label="save as" hotKey="Ctrl+Shift+S"/>
 	</menuitem>
 	<menuitem label="Menu2">
 		<menuitem label="MenuItem 2-A" type="check"/>
